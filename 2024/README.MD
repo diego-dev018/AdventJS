@@ -1,6 +1,6 @@
 # AdventJS 2024
 
-¡Bienvenido a AdventJS 2024 por ![Midudev](https://www.twitch.tv/midudev)! 🎄
+¡Bienvenido a AdventJS 2024 por [Midudev](https://www.twitch.tv/midudev)! 🎄
 
 ## Dia 1
 
