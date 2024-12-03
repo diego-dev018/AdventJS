@@ -1,15 +1,9 @@
 function organizeInventory(inventory) {
-    return inventory.reduce((acc, el) => {
-        let temp = {}
-        if (!acc[el.category]) {
-            temp[el.name] = el.quantity
-            acc[el.category] = temp
+    return inventory.reduce((acc, {name, quantity, category}) => {
+        if (!acc[category]) {
+            acc[category] = { [name]: quantity }
         } else {
-            if (!acc[el.category][el.name]) {
-                acc[el.category][el.name] = el.quantity
-            } else {
-                acc[el.category][el.name] += el.quantity
-            }
+            acc[category][name] = acc[category][name] + quantity || quantity
         }
         return acc
     }, {})
