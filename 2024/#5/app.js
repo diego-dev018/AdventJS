@@ -1,20 +1,15 @@
 function organizeShoes(shoes) {
-    return shoes.reduce((acc, el) => {
-        const found = shoes.find(n => {
-            if (
-                n.size === el.size
-                && n.type === 'R' 
-                && el.type === 'I'
-                && !acc.find(i => i === n)
-            ) {
-                return true
-            }
-        })
-        if (found) {
-            acc.push(found)
-        }
+    let pairs = []
+    const toOrderMap = shoes.reduce((acc, { type, size }) => {
+        acc[size] ??= { I: 0, R: 0}
+        acc[size][type] += 1
         return acc
-    }, []).map(n => n.size)
+    }, {})
+    for (let size in toOrderMap) {
+        const toCheck = Math.min(toOrderMap[size]['I'], toOrderMap[size]['R'])
+        for(const _ in Array.from({length: toCheck})) pairs.push(+size)
+    }
+    return pairs
 }
 
 const shoes = [
