@@ -1,28 +1,19 @@
 function fixPackages(packages) {
-    packages = packages.split('')
+    const new_packages = []
 
-    for (let i = 0; i < packages.length; i++) {
-        
-        if (packages[i] === ')') {
-            const end = parseInt(i)
-            let start = end
-
-            while (packages[start] !== '(') {
-                start--
+    for (let word of packages) {
+        if (word === ')') {
+            let reversed = ''
+            while(new_packages.at(-1) !== '(') {
+                reversed += new_packages.pop()
             }
-            const range = end - start
-
-            const reversed = [...packages].slice(start + 1, end).reverse()
-            
-            packages.splice(start, range + 1, ...reversed)
-
-            i = i - 2
-
+            new_packages.pop()
+            new_packages.push(...reversed)
             continue
         }
+        new_packages.push(word)
     }
-
-    return packages.join('')
+    return new_packages.join('')
 }
 
 console.log(fixPackages('a(bc(def)g)h'))
