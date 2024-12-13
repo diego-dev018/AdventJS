@@ -1,20 +1,25 @@
 function fixPackages(packages) {
     packages = packages.split('')
-    const indexes = packages.reduce((acc, el, index) => {
-        if(el === '(') {
-            acc.start.push(index)
-        }
-        if(el === ')') {
-            acc.end.push(index)
-        }
-        return acc
-    }, { start: [], end: [] }); indexes.start.reverse()
 
-    for (let i = 0; i < indexes.start.length; i++) {
-        const start = indexes.start[i]
-        const range = indexes.end[i] - indexes.start[i]
-        const reversed = [...packages].slice(start + 1, start + range - (i * 2)).reverse()
-        packages.splice(start, range + 1 - (i * 2), ...reversed)
+    for (let i = 0; i < packages.length; i++) {
+        
+        if (packages[i] === ')') {
+            const end = parseInt(i)
+            let start = end
+
+            while (packages[start] !== '(') {
+                start--
+            }
+            const range = end - start
+
+            const reversed = [...packages].slice(start + 1, end).reverse()
+            
+            packages.splice(start, range + 1, ...reversed)
+
+            i = i - 2
+
+            continue
+        }
     }
 
     return packages.join('')
