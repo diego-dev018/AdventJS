@@ -17,12 +17,17 @@ function moveTrain(board, mov) {
         pos.y = parseInt(pos.y) + (move_y[mov])
     }
 
-    if (pos.x < 0 || pos.y < 0 || pos.x >= board[0].length || pos.y >= board.length || board[pos.y][pos.x] === 'o') {
+    try {        
+        const fObj = board[pos.y][pos.x]
+        if (fObj === 'o') {
+            return 'crash'
+        } else if (fObj === '*') {
+            return 'eat'
+        }
+        return 'none'
+    } catch {
         return 'crash'
-    } else if (board[pos.y][pos.x] === '*') {
-        return 'eat'
     }
-    return 'none'
 }
 
 const board = [
